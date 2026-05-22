@@ -183,7 +183,7 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--target", default="llama3.1:8b", help="Model under test")
     p.add_argument("--judge", default="qwen2.5:14b", help="Judge model (must differ from target)")
-    p.add_argument("--n", type=int, default=20, help="Number of prompts to run (max 20)")
+    p.add_argument("--n", type=int, default=50, help="Number of prompts to run (max 50)")
     p.add_argument("--host", default=DEFAULT_OLLAMA, help="Ollama host URL")
     p.add_argument("--rubrics-v2", action="store_true", help="Use sharper per-score rubric anchors (rubrics_v2.py)")
     args = p.parse_args()
