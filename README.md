@@ -63,7 +63,7 @@ Single-judge LLM-as-judge has documented bias toward verbose, hedging responses 
 python irr.py --target dolphin3:latest --judges gemma4:latest,qwen3-coder:latest --n 10
 ```
 
-The report at `reports/<run_id>.md` includes:
+The report at `reports/<run_id>_irr.md` includes:
 
 - Per-judge mean scores side-by-side with the delta
 - Cohen's quadratic-weighted kappa per rubric dimension
