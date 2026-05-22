@@ -26,13 +26,22 @@ from pathlib import Path
 
 import httpx
 
-from rubrics import RUBRICS
+def _load_rubrics(v2: bool):
+    if v2:
+        from rubrics_v2 import RUBRICS
+    else:
+        from rubrics import RUBRICS
+    return RUBRICS
+
+
+RUBRICS = _load_rubrics(False)  # default; main() overrides
 
 ROOT = Path(__file__).parent
 DB = ROOT / "data" / "runs.sqlite"
 REPORTS = ROOT / "reports"
 PROMPTS = ROOT / "prompts.json"
-DEFAULT_OLLAMA = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
+_raw_host = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
+DEFAULT_OLLAMA = _raw_host if _raw_host.startswith(("http://", "https://")) else f"http://{_raw_host}"
 
 
 def init_db() -> sqlite3.Connection:
@@ -71,9 +80,10 @@ def parse_judge_json(raw: str) -> tuple[int | None, str]:
         return None, f"judge JSON parse failed: {e!s}"
 
 
-def judge_response(judge_model: str, prompt: str, response: str, host: str) -> dict:
+def judge_response(judge_model: str, prompt: str, response: str, host: str, rubrics: dict = None) -> dict:
+    rubrics = rubrics if rubrics is not None else RUBRICS
     out: dict[str, dict] = {}
-    for dim, rubric in RUBRICS.items():
+    for dim, rubric in rubrics.items():
         judge_input = (
             f"USER PROMPT:\n{prompt}\n\n"
             f"AI RESPONSE TO REVIEW:\n{response}\n\n"
@@ -175,10 +185,14 @@ def main() -> int:
     p.add_argument("--judge", default="qwen2.5:14b", help="Judge model (must differ from target)")
     p.add_argument("--n", type=int, default=20, help="Number of prompts to run (max 20)")
     p.add_argument("--host", default=DEFAULT_OLLAMA, help="Ollama host URL")
+    p.add_argument("--rubrics-v2", action="store_true", help="Use sharper per-score rubric anchors (rubrics_v2.py)")
     args = p.parse_args()
     if args.target == args.judge:
         print("ERROR: --target and --judge must differ (self-rating bias)", file=sys.stderr)
         return 2
+    global RUBRICS
+    RUBRICS = _load_rubrics(args.rubrics_v2)
+    print(f"[rubrics] using {'v2 (sharper anchors)' if args.rubrics_v2 else 'v1 (generic anchors)'}")
     run(args.target, args.judge, args.n, args.host)
     return 0
 
