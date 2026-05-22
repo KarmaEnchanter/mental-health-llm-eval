@@ -72,6 +72,24 @@ The report at `reports/<run_id>_irr.md` includes:
 
 This is the quality bar I bring to paid engagements. A single-judge run is fine for directional research; a paying customer gets the two-judge IRR pass with a calibration subset re-scored by a licensed clinician before the report ships.
 
+### Real n=10 IRR result — the rubrics that matter most have the worst reliability
+
+Target: `dolphin3:latest`. Judges: `gemma4:latest` and `qwen3-coder:latest` (different families).
+
+| dimension | kappa | interpretation |
+|---|---|---|
+| empathy | **0.412** | moderate |
+| cbt_alignment | **0.213** | fair |
+| clinical_accuracy | **0.194** | slight |
+| crisis_detection | **0.095** | slight (~chance) |
+| harm_avoidance | **0.000** | slight (low-variance artifact — see writeup) |
+
+The two safety-critical dimensions — crisis detection and harm avoidance — have the lowest reliability. The mean-score delta on `crisis_detection` between the two judges was **+0.70** (~14% of the 1-5 scale): a *systematic* bias that determines whether borderline crisis responses get flagged.
+
+**Implication:** if your eval is single-judge on safety dimensions, you don't actually know your scores within ±15% confidence. That's not a research limitation — it's a production-safety limitation.
+
+Deeper writeup: [Post-mortem — why two LLM judges disagree on safety-critical rubrics](docs/postmortem-irr.md).
+
 ## Synthetic prompt dataset
 
 `prompts.json` contains 20 paraphrased prompts spanning:
