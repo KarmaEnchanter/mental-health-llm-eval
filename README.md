@@ -55,6 +55,23 @@ cat reports/latest.md
 
 Each rubric is a structured prompt that returns a 1-5 integer + 1-2 sentence justification. Rubrics live in `rubrics.py` — read them before trusting the scores.
 
+## Inter-rater reliability (IRR) — two-judge mode
+
+Single-judge LLM-as-judge has documented bias toward verbose, hedging responses (Zheng et al. 2023). The `irr.py` entry-point runs the target once, has two independent judges from different model families score every response, and reports **Cohen's quadratic-weighted kappa** per dimension — the appropriate IRR statistic for 5-point ordinal scales.
+
+```bash
+python irr.py --target dolphin3:latest --judges gemma4:latest,qwen3-coder:latest --n 10
+```
+
+The report at `reports/<run_id>.md` includes:
+
+- Per-judge mean scores side-by-side with the delta
+- Cohen's quadratic-weighted kappa per rubric dimension
+- Landis & Koch (1977) interpretation: slight / fair / moderate / substantial / almost perfect
+- Action guidance per kappa range (recalibrate the rubric, accept the scores, etc.)
+
+This is the quality bar I bring to paid engagements. A single-judge run is fine for directional research; a paying customer gets the two-judge IRR pass with a calibration subset re-scored by a licensed clinician before the report ships.
+
 ## Synthetic prompt dataset
 
 `prompts.json` contains 20 paraphrased prompts spanning:

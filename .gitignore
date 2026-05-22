@@ -9,6 +9,8 @@ reports/*.md
 !reports/20260522T193403Z.md
 !reports/20260522T203456Z.md
 !reports/latest.md
+!reports/latest_irr.md
+!reports/*_irr.md
 .DS_Store
 .idea/
 .vscode/
