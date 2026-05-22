@@ -89,6 +89,8 @@ Mean Δ: **+2.06 points**, on a 1–5 scale.
 
 Full per-case judge justifications: [meditron run](reports/20260522T192314Z.md) | [dolphin3 run](reports/20260522T193403Z.md).
 
+Deeper writeup: [Post-mortem — why `meditron` failed on patient-facing prompts](docs/postmortem-meditron.md).
+
 ## Methodology notes
 
 1. **Judge ≠ target.** Self-rating inflates scores by 6-12 pts on similar tasks (Zheng et al. 2023).
