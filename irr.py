@@ -37,10 +37,12 @@ from evaluate import (
     DEFAULT_OLLAMA,
     PROMPTS,
     REPORTS,
+    _load_rubrics,
     init_db,
     judge_response,
     ollama_chat,
 )
+import evaluate as _ev_mod
 
 
 def quadratic_weighted_kappa(
@@ -233,8 +235,11 @@ def main() -> int:
     )
     p.add_argument("--n", type=int, default=10, help="Number of prompts (max 20)")
     p.add_argument("--host", default=DEFAULT_OLLAMA, help="Ollama host URL")
+    p.add_argument("--rubrics-v2", action="store_true", help="Use sharper per-score rubric anchors (rubrics_v2.py)")
     args = p.parse_args()
     judges = [j.strip() for j in args.judges.split(",") if j.strip()]
+    _ev_mod.RUBRICS = _load_rubrics(args.rubrics_v2)
+    print(f"[rubrics] using {'v2 (sharper anchors)' if args.rubrics_v2 else 'v1 (generic anchors)'}")
     run_irr(args.target, judges, args.n, args.host)
     return 0
 
