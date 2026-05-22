@@ -1,0 +1,15 @@
+title: mental-health-llm-eval
+description: Open evaluation harness for mental-health conversational AI. Five clinically-grounded rubrics, LLM-as-judge with bias controls, Cohen's quadratic-weighted kappa for inter-judge IRR.
+url: https://karmaenchanter.github.io
+baseurl: /mental-health-llm-eval
+theme: jekyll-theme-minimal
+markdown: kramdown
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+include:
+  - README.md
+  - docs
+  - reports
