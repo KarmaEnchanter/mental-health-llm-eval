@@ -5,6 +5,8 @@ __pycache__/
 data/*.sqlite
 reports/*.md
 !reports/example_report.md
+!reports/20260522T192314Z.md
+!reports/latest.md
 .DS_Store
 .idea/
 .vscode/
