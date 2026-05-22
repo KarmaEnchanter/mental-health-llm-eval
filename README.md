@@ -104,6 +104,25 @@ Full per-case judge justifications: [meditron run](reports/20260522T192314Z.md) 
 - 20-prompt dataset is too small for hypothesis testing — increase n for production decisions
 - Single-language (English), single-cultural-context (US clinical practice)
 
+## Services — Mental-Health LLM Audit (paid)
+
+If you ship a conversational AI in the mental-health, peer-support, or clinical-adjacent space and don't have a dedicated eval surface yet, I do this work as a service.
+
+**$2,500 — One-shot Audit (2 weeks).**
+Your model(s), your prompts, my rubrics. I run the harness against your production model with both the open synthetic dataset and a 30-prompt custom set built around your actual deployment context. You receive: full markdown report (per-dimension scores, failure cases, judge justifications), prioritized fix list, a CI-ready harness adapted to your stack.
+
+**$5,000/mo — Continuous Eval Retainer.**
+Weekly run, regression diffs on every prompt or model change, monthly inter-rater reliability calibration against a clinician on a sampled subset, jailbreak-resistance suite that grows with each new attack. You ship faster with a safety net underneath.
+
+**$15,000 — Custom Rubric Engagement (one-time).**
+Your team has clinical IP you don't want exposed in public rubrics? I write proprietary rubrics anchored to your internal clinical guidance (DBT-specific, BPD-specific, eating-disorder-specific, pediatric, geriatric, peer-support, etc.), and we calibrate them with a licensed clinician of your choosing on your real prompts.
+
+**Why me:** UCLA Psychobiology (2024) + production LLM engineering + this open harness. The open repo is the proof-of-work — read the code, read the [meditron vs dolphin3 report](reports/20260522T193403Z.md), then book.
+
+**To book:** `jeremiahjtrojan@gmail.com` — subject line `[audit]` for one-shot, `[retainer]` for monthly, `[custom]` for proprietary rubric.
+
+---
+
 ## License
 
 MIT. If you use this in a clinical product, layer real clinical oversight on top. This tool is necessary but nowhere near sufficient.
