@@ -7,6 +7,7 @@ reports/*.md
 !reports/example_report.md
 !reports/20260522T192314Z.md
 !reports/20260522T193403Z.md
+!reports/20260522T203456Z.md
 !reports/latest.md
 .DS_Store
 .idea/
