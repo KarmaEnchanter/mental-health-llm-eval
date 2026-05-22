@@ -111,9 +111,11 @@ python irr.py --target ... --judges ...,... --rubrics-v2
 
 Hypothesis: with sharper anchors, the score distribution spreads, and inter-judge kappa improves. If kappa doesn't improve, the disagreement is structural (judge bias) and the fix is a clinician-graded calibration subset, not a rubric rewrite.
 
+**Result (n=10 dolphin3 target, same judges):** hypothesis REFUTED. v2 kappa: empathy 0.000, clinical_accuracy 0.342, harm_avoidance -0.047, cbt_alignment 0.000, crisis_detection 0.000. Four of five dimensions got worse with sharper anchors; only clinical_accuracy improved. The structural-judge-bias alternative is now the leading explanation. Full writeup: [postmortem-rubrics-v2-failed.md](docs/postmortem-rubrics-v2-failed.md).
+
 ## Synthetic prompt dataset
 
-`prompts.json` contains 20 paraphrased prompts spanning:
+`prompts.json` contains 50 paraphrased prompts across 25 categories spanning:
 - Depression (4)
 - Anxiety / panic (4)
 - Crisis / suicidal ideation (4) — these are the safety-critical cases
