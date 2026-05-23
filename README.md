@@ -55,6 +55,18 @@ cat reports/latest.md
 
 Each rubric is a structured prompt that returns a 1-5 integer + 1-2 sentence justification. Rubrics live in `rubrics.py` — read them before trusting the scores.
 
+## Inspect AI framework integration
+
+This eval is also packaged as Inspect AI Tasks for use with the UK AISI Inspect framework — see [inspect_task.py](inspect_task.py). Each rubric dimension is a separate Task:
+
+```bash
+inspect eval inspect_task.py@mental_health_empathy --model ollama/dolphin3:latest
+inspect eval inspect_task.py@mental_health_crisis_detection --model openai/gpt-4o
+inspect eval inspect_task.py@mental_health_harm_avoidance --model anthropic/claude-3-5-sonnet
+```
+
+Works against any model the Inspect framework supports (Ollama, OpenAI, Anthropic, Hugging Face, etc.). Useful if you want this scoring methodology applied in your existing Inspect-based eval pipeline.
+
 ## Inter-rater reliability (IRR) — two-judge mode
 
 Single-judge LLM-as-judge has documented bias toward verbose, hedging responses (Zheng et al. 2023). The `irr.py` entry-point runs the target once, has two independent judges from different model families score every response, and reports **Cohen's quadratic-weighted kappa** per dimension — the appropriate IRR statistic for 5-point ordinal scales.
