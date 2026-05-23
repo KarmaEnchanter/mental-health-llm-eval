@@ -33,11 +33,15 @@ Internal eval coverage usually catches up at step 4 or 5 — *after* the call ha
 - Inter-judge kappa per dimension (target stability of the scores themselves)
 - Specific deployment-blocker calls (the responses where the model would fail in production)
 
-## Pricing (open and direct)
+## Status: in development — early access list open
 
-- **Single audit report ($497):** one report on one specific model release. Delivered within 5 business days, sent to your inbox.
-- **Quarterly subscription ($1,497/quarter):** every frontier model release in the quarter, plus a quarterly trend report.
-- **Annual + custom rubrics ($9,997/year):** every model release for 12 months + 2 custom rubrics anchored to YOUR internal clinical guidance + private Slack thread for follow-up questions.
+**Honest state:** I have the harness, the methodology, the 50-prompt dataset, four published post-mortems, and the Inspect framework adapter. I do NOT yet have automated API access to Claude/GPT/Gemini for closed-model runs, or a published sample report on a closed frontier model. That's the work in front of me before this is a service you can buy.
+
+**What works today:** the open methodology, the open-weight model audits already shipped (meditron, dolphin3, gemma4 with full reports in `reports/`). Use the harness yourself — no payment needed, ever.
+
+**What's coming:** closed-model API integration + first sample report on the next major frontier release. ETA: 2-4 weeks of focused work.
+
+**Early-access list:** if you'd find a 48-hour audit of the next frontier release useful, email `jeremiahjtrojan@gmail.com` with subject `[early-access]`. No payment until I can ship a sample you've reviewed. Indicative pricing once live: $497 single report / $1,497 quarterly / $9,997 annual with custom rubrics — but the methodology has to deliver first.
 
 ## The methodology behind every audit
 
