@@ -1,0 +1,27 @@
+[project]
+name = "mental-health-llm-eval"
+version = "0.2.0"
+description = "Five-rubric LLM safety eval for mental-health adjacent prompts, with Inspect AI adapter"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Jeremiah Trojan", email = "jeremiahjtrojan@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "inspect_ai>=0.3.50",
+    "httpx>=0.27",
+    "ollama>=0.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/KarmaEnchanter/mental-health-llm-eval"
+Repository = "https://github.com/KarmaEnchanter/mental-health-llm-eval"
+"Eval Site" = "https://karmaenchanter.github.io/mental-health-llm-eval/"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["inspect_task", "rubrics", "rubrics_v2", "irr", "evaluate"]
