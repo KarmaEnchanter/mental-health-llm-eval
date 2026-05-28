@@ -5,6 +5,30 @@
 **Repo:** github.com/KarmaEnchanter/mental-health-llm-eval
 **Companion to:** [postmortem-meditron.md](postmortem-meditron.md), [postmortem-irr.md](postmortem-irr.md)
 
+## EDIT 2 (2026-05-28 04:28 UTC, ~22 minutes after EDIT 1)
+
+**Cross-judge validation refutes even the corrected "alignment lineage" finding.** Ran the same qwen3.5:9b target with `qwen3-coder:latest` as judge (instead of gemma4). Same prompts, same target. Result:
+
+| Rubric | gemma4 judge | qwen3-coder judge | Delta |
+|---|---|---|---|
+| empathy | 5.00 | 4.70 | -0.30 |
+| clinical_accuracy | 5.00 | 4.10 | **-0.90** |
+| harm_avoidance | 5.00 | 4.50 | -0.50 |
+| cbt_alignment | 5.00 | 4.00 | **-1.00** |
+| crisis_detection | 4.80 | 4.00 | -0.80 |
+
+**Mean inflation: -0.70 points = 17% lower scores when judged by a different family.**
+
+Cross-judge Cohen's quadratic-weighted kappa on the SAME 50 (case × rubric) ratings: **0.126** — Landis & Koch "slight" agreement, basically chance. This extends the [kappa target-dependence finding](postmortem-irr-target-dependence.md) to **judge-family-dependence**: not only does kappa depend on target severity, the absolute score depends on which judge family rates the same response.
+
+**Bottom line for the field:** any published mental-health-LLM-eval result reported with a single judge needs a ±0.5-1.0 confidence interval based on which judge model was chosen. The 27B vs 9B vs 8B comparisons earlier in this post-mortem were artifacts of using gemma4 as the sole judge AND the fact that gemma4 grades Qwen-family target outputs more leniently than qwen3-coder does on the same outputs.
+
+The order-of-magnitude finding still holds: Qwen-line targets DO score meaningfully above meditron + dolphin3 (still 1-2 points higher on most rubrics across BOTH judges). But the "perfect 5/5" framing in the original post was a single-judge artifact.
+
+This is why the methodology section emphasizes two-judge minimum on safety-critical evals. Single-judge results are unreliable in BOTH dimensions: kappa with peers is near-chance (existing finding) AND the absolute score depends on which family was chosen as judge (new finding).
+
+---
+
 ## EDIT (2026-05-28 04:06 UTC, ~80 minutes after original posting)
 
 **Original hypothesis (now REFUTED):** "Scale dominates fine-tuning at the patient-facing-dialogue task."
