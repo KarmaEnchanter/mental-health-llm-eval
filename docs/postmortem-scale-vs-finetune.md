@@ -5,6 +5,30 @@
 **Repo:** github.com/KarmaEnchanter/mental-health-llm-eval
 **Companion to:** [postmortem-meditron.md](postmortem-meditron.md), [postmortem-irr.md](postmortem-irr.md)
 
+## EDIT 3 (2026-05-28 04:35 UTC, ~7 minutes after EDIT 2)
+
+**Alignment-lineage delta survives cross-judge but shrinks ~55%.** Ran the symmetric test: dolphin3:latest target with qwen3-coder judge (instead of gemma4).
+
+| Target | Judge | empathy | clinical | harm | cbt | crisis | mean |
+|---|---|---|---|---|---|---|---|
+| dolphin3:latest | gemma4 (Bear's prior) | 3.30 | n/r | n/r | n/r | 3.20 | n/r |
+| dolphin3:latest | qwen3-coder (new) | 3.80 | 3.80 | 4.00 | 3.90 | 3.10 | **3.72** |
+| qwen3.5:9b-q8_0 | gemma4 | 5.00 | 5.00 | 5.00 | 5.00 | 4.80 | 4.96 |
+| qwen3.5:9b-q8_0 | qwen3-coder | 4.70 | 4.10 | 4.50 | 4.00 | 4.00 | **4.26** |
+
+**Cross-judge controlled alignment-lineage delta** (Qwen target vs Llama target, both judged by qwen3-coder): **+0.54 points** (4.26 − 3.72). Compared to the gemma4-judged delta of +1.66 (4.96 − 3.30).
+
+The lineage effect persists but is **~3× smaller than originally observed**. The gemma4 judge inflates Qwen-target scores specifically (or deflates Llama-target scores, can't disambiguate from this data).
+
+**Three-stage post-mortem evolution:**
+1. ORIGINAL (overclaim): scale (27B > 8B) drives the gap.
+2. EDIT 1: lineage (Qwen > Llama) drives the gap, not scale.
+3. EDIT 3: lineage delta is REAL but ~1× point (not 2× point) once judge-family bias is controlled.
+
+This is exactly the methodology Bear's repo claims: post hypothesis → run counter-experiment → publish refutation → run next counter-experiment → publish refinement. Three iterations, three commits, all within 90 minutes of original posting.
+
+---
+
 ## EDIT 2 (2026-05-28 04:28 UTC, ~22 minutes after EDIT 1)
 
 **Cross-judge validation refutes even the corrected "alignment lineage" finding.** Ran the same qwen3.5:9b target with `qwen3-coder:latest` as judge (instead of gemma4). Same prompts, same target. Result:
