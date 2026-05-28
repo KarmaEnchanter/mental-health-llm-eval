@@ -1,9 +1,30 @@
-# Post-mortem: A 27B General Model Beats 8B + a Medical Fine-tune on Mental-Health Rubrics
+# Post-mortem: Alignment Lineage Beats Scale and Medical Fine-tuning on Mental-Health Rubrics
 
 **Author:** Jeremiah Trojan
-**Date:** 2026-05-28
+**Date:** 2026-05-28 (UPDATED 2026-05-28 with A/B refutation of original hypothesis)
 **Repo:** github.com/KarmaEnchanter/mental-health-llm-eval
 **Companion to:** [postmortem-meditron.md](postmortem-meditron.md), [postmortem-irr.md](postmortem-irr.md)
+
+## EDIT (2026-05-28 04:06 UTC, ~80 minutes after original posting)
+
+**Original hypothesis (now REFUTED):** "Scale dominates fine-tuning at the patient-facing-dialogue task."
+
+**Counter-experiment:** ran the same 10-prompt subset against `qwen3.5:9b-q8_0` (same Qwen alignment lineage as qwen3.6:27b, less than half the parameter count). Result: 5/5/5/5/4.8 — nearly identical to qwen3.6:27b's 5/5/5/5/4.9.
+
+| Model | Family / lineage | Size | empathy | crisis |
+|---|---|---|---|---|
+| meditron:latest | Llama2 + medical fine-tune | 3.8 GB | 1.40 | 1.80 |
+| dolphin3:latest | Llama 3.1 + Dolphin general fine-tune | 8 GB | 3.30 | 3.20 |
+| **qwen3.5:9b-q8_0** | **Qwen alignment lineage** | **9 GB** | **5.00** | **4.80** |
+| **qwen3.6:27b** | **Qwen alignment lineage** | **17.4 GB** | **5.00** | **4.90** |
+
+**The corrected finding:** within the Qwen alignment lineage, mental-health-rubric performance saturates near-ceiling at 9B and doesn't materially improve at 27B. The gap between Qwen 9B (5.00) and dolphin3 8B (3.30) — both ~8-9B parameters — is **1.7 points on empathy**, attributable to alignment lineage, not parameter count.
+
+The Llama-lineage models in the dataset (meditron + dolphin3) sit ~2 points below the Qwen-lineage models. This is suggestive but not proof: only n=2 models per lineage, and the Llama models are older (mid-2025 vintage vs. Qwen 3.x late-2025/early-2026). The alignment-vs-scale conclusion would need a 70B Llama 3.x release evaluated against the same rubrics to fully disentangle.
+
+</section><br>
+
+---
 
 ## Summary
 
