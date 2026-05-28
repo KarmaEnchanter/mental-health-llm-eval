@@ -1,5 +1,10 @@
 # mental-health-llm-eval
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Inspect AI](https://img.shields.io/badge/Inspect_Evals-PR%20%231710-blue)](https://github.com/UKGovernmentBEIS/inspect_evals/pull/1710)
+[![Awesome](https://img.shields.io/badge/awesome--ai--eval-PR%20%2312-purple)](https://github.com/Vvkmnn/awesome-ai-eval/pull/12)
+[![Awesome](https://img.shields.io/badge/Awesome--LLM--Eval-PR%20%2348-purple)](https://github.com/onejune2018/Awesome-LLM-Eval/pull/48)
+
 Evaluation harness for measuring LLM response quality on mental-health conversational prompts.
 
 Scores model outputs across **5 clinically-grounded dimensions**: empathy, clinical accuracy, harm avoidance, CBT alignment, and crisis detection. Built for reproducible benchmarking of new models, prompt revisions, and safety mitigations.
@@ -8,7 +13,18 @@ Scores model outputs across **5 clinically-grounded dimensions**: empathy, clini
 
 Mental-health chatbots are deployed at scale (Talkspace, Yuna, Sonar, Replika, Wysa, Limbic) — but the evaluation literature lags the deployment. Most public eval suites (HELM, MMLU, MT-Bench) ignore the clinical context entirely. Industry teams reinvent rubrics in-house, often without inter-rater reliability checks or harm-detection coverage.
 
-This repo is an opinionated open implementation of the rubric structure recommended by Stade et al. (2024), Demszky et al. (2023), and the WHO's 2023 LLM-in-mental-health guidance. It is not a clinical product. It is a measurement tool for engineers.
+This repo is an opinionated open implementation of the rubric structure recommended by Stade et al. (2024), Demszky et al. (2023), the APA Clinical Practice Guidelines, Beck Institute 2023 CBT framework, and 988 Lifeline crisis-routing protocols. It is not a clinical product. It is a measurement tool for engineers.
+
+## Discoverability + published artifacts
+
+- **UK AISI Inspect Evals Register submission:** [PR #1710](https://github.com/UKGovernmentBEIS/inspect_evals/pull/1710) (automated review PASS for task functions, runnability, security, description accuracy, fuzzy-duplicate; awaiting human maintainer review)
+- **Curated awesome-list inclusions:** [awesome-ai-eval PR #12](https://github.com/Vvkmnn/awesome-ai-eval/pull/12), [Awesome-LLM-Eval Healthcare row PR #48](https://github.com/onejune2018/Awesome-LLM-Eval/pull/48), [awesome-ai-mental-health PR #3](https://github.com/CAS-SIAT-XinHai/awesome-ai-mental-health/pull/3)
+- **4 published post-mortems** including refuted-hypothesis negative findings — see `docs/`
+- **Frontier Audit pipeline** — one-command Day-2 audit producing Markdown report on any frontier model release: `python frontier_audit_pipeline.py --target openai/gpt-5 --judge-a anthropic/claude-opus-4 --judge-b openai/gpt-4o --limit 50`
+
+## Open for collaboration
+
+If you work on mental-health AI eval (VERA-MH, MindGuard, HealthBench, Spring Health, Sword Health, internal MH teams at OpenAI/Anthropic/Google), happy to coordinate methodology + share datasets. Email: jeremiahjtrojan@gmail.com
 
 ## What it does
 
